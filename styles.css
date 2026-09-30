@@ -1,0 +1,1228 @@
+/* ==========================================================================
+   Youssef Diaa Abdallah — Cybersecurity & Software Testing Portfolio System
+   4 Interactive Cyber Mouse Cursor Models & Live Switcher Widget
+   ========================================================================== */
+
+/* --- Design Tokens & Color Palette --- */
+:root {
+  /* Cybersecurity Dark Canvas Palette */
+  --bg-primary: #050811;
+  --bg-secondary: #0a0f1d;
+  --bg-card: rgba(13, 19, 33, 0.78);
+  --bg-card-hover: rgba(20, 29, 51, 0.92);
+  --bg-tag: rgba(0, 242, 254, 0.12);
+  
+  /* Cybersecurity Vibrant Accents */
+  --cyan-glow: #00f2fe;
+  --blue-glow: #4facfe;
+  --purple-glow: #7928ca;
+  --pink-glow: #ff0080;
+  --indigo-glow: #6366f1;
+  --emerald-glow: #10b981;
+  
+  /* Cyber Gradients */
+  --grad-primary: linear-gradient(135deg, #00f2fe 0%, #4facfe 50%, #6366f1 100%);
+  --grad-accent: linear-gradient(135deg, #7928ca 0%, #ff0080 100%);
+  --grad-cyber: linear-gradient(135deg, #10b981 0%, #00f2fe 100%);
+  
+  /* Text Colors */
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-light: #64748b;
+  
+  /* Glassmorphism & Borders */
+  --border-glass: rgba(0, 242, 254, 0.15);
+  --border-glow: rgba(0, 242, 254, 0.6);
+  --shadow-glow: 0 0 30px rgba(0, 242, 254, 0.22);
+  --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.7), 0 0 40px rgba(0, 242, 254, 0.4);
+  
+  /* Contact Section */
+  --contact-bg: #02050e;
+  
+  /* Geometry */
+  --font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif;
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
+  --nav-height: 80px;
+  --container-max: 1240px;
+  
+  /* Transitions */
+  --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* --- Base & Reset --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-family);
+  color: var(--text-main);
+  background-color: var(--bg-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  line-height: 1.6;
+  overflow-x: hidden;
+  background-color: var(--bg-primary);
+  position: relative;
+}
+
+/* Hide default cursor on desktops for custom cursor */
+@media (pointer: fine) {
+  body {
+    cursor: none;
+  }
+  a, button, input, .why-card, .skill-category-card, .soft-skill-card, .service-card, .contact-info-card, .cursor-btn {
+    cursor: none !important;
+  }
+}
+
+/* Typography Helpers */
+h1, h2, h3, h4 {
+  color: var(--text-main);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+p {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.gradient-text {
+  background: var(--grad-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.gradient-accent-text {
+  background: var(--grad-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+/* --- CYBERSECURITY MATRIX BACKGROUND CANVAS --- */
+#bg-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   4 MULTIPLE CURSOR MODELS & STYLES
+   ========================================================================== */
+
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s, background-color 0.2s, border-radius 0.2s;
+}
+
+.cursor-outline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.12s ease-out, width 0.2s, height 0.2s, border-color 0.2s, border-radius 0.2s;
+}
+
+/* --- MODEL 1: Cyber Hacker Scope (Target Reticle) --- */
+body.cursor-model-1 .cursor-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--cyan-glow);
+  box-shadow: 0 0 15px var(--cyan-glow), 0 0 25px var(--cyan-glow);
+  border-radius: 50%;
+}
+
+body.cursor-model-1 .cursor-outline {
+  width: 48px;
+  height: 48px;
+  border: 1.5px dashed rgba(0, 242, 254, 0.8);
+  box-shadow: inset 0 0 15px rgba(0, 242, 254, 0.25), 0 0 25px rgba(0, 242, 254, 0.4);
+  border-radius: 50%;
+  animation: reticleRotate 8s linear infinite;
+}
+
+body.cursor-model-1.cursor-hover .cursor-dot {
+  width: 14px;
+  height: 14px;
+  background-color: var(--pink-glow);
+  box-shadow: 0 0 25px var(--pink-glow);
+}
+
+body.cursor-model-1.cursor-hover .cursor-outline {
+  width: 62px;
+  height: 62px;
+  border: 2px solid rgba(255, 0, 128, 0.9);
+  box-shadow: inset 0 0 20px rgba(255, 0, 128, 0.4), 0 0 35px rgba(255, 0, 128, 0.7);
+}
+
+@keyframes reticleRotate {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* --- MODEL 2: Cyber Pulse Ring (Futuristic Neon Orb) --- */
+body.cursor-model-2 .cursor-dot {
+  width: 12px;
+  height: 12px;
+  background: var(--grad-primary);
+  box-shadow: 0 0 20px var(--cyan-glow), 0 0 35px var(--indigo-glow);
+  border-radius: 50%;
+}
+
+body.cursor-model-2 .cursor-outline {
+  width: 44px;
+  height: 44px;
+  border: 2px solid rgba(99, 102, 241, 0.6);
+  background: rgba(99, 102, 241, 0.05);
+  box-shadow: 0 0 25px rgba(99, 102, 241, 0.3);
+  border-radius: 50%;
+  animation: pulseOrb 2s ease-in-out infinite alternate;
+}
+
+body.cursor-model-2.cursor-hover .cursor-dot {
+  width: 18px;
+  height: 18px;
+  background: var(--grad-accent);
+  box-shadow: 0 0 30px var(--pink-glow);
+}
+
+body.cursor-model-2.cursor-hover .cursor-outline {
+  width: 58px;
+  height: 58px;
+  border-color: var(--pink-glow);
+}
+
+@keyframes pulseOrb {
+  0% { transform: translate(-50%, -50%) scale(0.9); }
+  100% { transform: translate(-50%, -50%) scale(1.15); }
+}
+
+/* --- MODEL 3: Tactical Diamond Radar (Holographic Cyber Diamond) --- */
+body.cursor-model-3 .cursor-dot {
+  width: 10px;
+  height: 10px;
+  background-color: var(--emerald-glow);
+  box-shadow: 0 0 18px var(--emerald-glow);
+  transform: translate(-50%, -50%) rotate(45deg);
+  border-radius: 2px;
+}
+
+body.cursor-model-3 .cursor-outline {
+  width: 42px;
+  height: 42px;
+  border: 2px solid rgba(16, 185, 129, 0.7);
+  box-shadow: 0 0 25px rgba(16, 185, 129, 0.3);
+  transform: translate(-50%, -50%) rotate(45deg);
+  border-radius: 6px;
+  animation: diamondSpin 6s linear infinite;
+}
+
+body.cursor-model-3.cursor-hover .cursor-dot {
+  width: 16px;
+  height: 16px;
+  background-color: var(--cyan-glow);
+  box-shadow: 0 0 25px var(--cyan-glow);
+}
+
+body.cursor-model-3.cursor-hover .cursor-outline {
+  width: 56px;
+  height: 56px;
+  border-color: var(--cyan-glow);
+}
+
+@keyframes diamondSpin {
+  0% { transform: translate(-50%, -50%) rotate(45deg); }
+  100% { transform: translate(-50%, -50%) rotate(405deg); }
+}
+
+/* --- MODEL 4: Glowing Laser Pointer (Clean Cyber Laser & Aura) --- */
+body.cursor-model-4 .cursor-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #ff0055;
+  box-shadow: 0 0 15px #ff0055, 0 0 30px #ff0055;
+  border-radius: 50%;
+}
+
+body.cursor-model-4 .cursor-outline {
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(255, 0, 85, 0.5);
+  background: radial-gradient(circle, rgba(255, 0, 85, 0.15) 0%, transparent 70%);
+  box-shadow: 0 0 20px rgba(255, 0, 85, 0.2);
+  border-radius: 50%;
+}
+
+body.cursor-model-4.cursor-hover .cursor-dot {
+  width: 12px;
+  height: 12px;
+  background-color: var(--cyan-glow);
+  box-shadow: 0 0 25px var(--cyan-glow);
+}
+
+body.cursor-model-4.cursor-hover .cursor-outline {
+  width: 52px;
+  height: 52px;
+  border-color: var(--cyan-glow);
+}
+
+/* --- LIVE CURSOR MODEL SWITCHER WIDGET IN NAVBAR --- */
+.cursor-switcher {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(13, 19, 33, 0.85);
+  border: 1px solid var(--border-glass);
+  padding: 0.25rem;
+  border-radius: 100px;
+  margin-left: 1rem;
+}
+
+.cursor-btn {
+  background: none;
+  border: none;
+  padding: 0.35rem 0.7rem;
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.cursor-btn:hover,
+.cursor-btn.active {
+  background: var(--grad-primary);
+  color: #050811;
+  box-shadow: 0 0 12px rgba(0, 242, 254, 0.4);
+}
+
+/* --- Sticky Navigation Bar --- */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--nav-height);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(5, 8, 17, 0.85);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border-glass);
+  transition: all var(--transition-smooth);
+}
+
+.navbar.scrolled {
+  background: rgba(5, 8, 17, 0.96);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+  border-bottom-color: rgba(0, 242, 254, 0.35);
+}
+
+.nav-container {
+  width: 100%;
+  max-width: var(--container-max);
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.nav-logo span {
+  color: var(--cyan-glow);
+  text-shadow: 0 0 12px var(--cyan-glow);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  list-style: none;
+}
+
+.nav-link {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  position: relative;
+  padding: 0.4rem 0;
+  transition: color var(--transition-fast);
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--cyan-glow);
+  text-shadow: 0 0 10px rgba(0, 242, 254, 0.6);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: var(--grad-primary);
+  transition: width var(--transition-fast);
+  border-radius: 2px;
+  box-shadow: 0 0 10px var(--cyan-glow);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+/* Mobile Hamburger */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  z-index: 1001;
+}
+
+.hamburger {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: var(--text-main);
+  position: relative;
+  transition: background-color var(--transition-fast);
+}
+
+.hamburger::before,
+.hamburger::after {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 2px;
+  background-color: var(--text-main);
+  left: 0;
+  transition: transform var(--transition-fast);
+}
+
+.hamburger::before { top: -7px; }
+.hamburger::after { top: 7px; }
+
+.nav-toggle.open .hamburger { background-color: transparent; }
+.nav-toggle.open .hamburger::before { transform: translateY(7px) rotate(45deg); background-color: var(--cyan-glow); }
+.nav-toggle.open .hamburger::after { transform: translateY(-7px) rotate(-45deg); background-color: var(--cyan-glow); }
+
+/* --- Section Layout Standard --- */
+section {
+  min-height: 100vh;
+  padding: calc(var(--nav-height) + 2rem) 2rem 4rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  box-sizing: border-box;
+}
+
+.section-container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+}
+
+.section-header {
+  margin-bottom: 3.5rem;
+}
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1rem;
+  background: rgba(0, 242, 254, 0.12);
+  border: 1px solid rgba(0, 242, 254, 0.35);
+  border-radius: 100px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--cyan-glow);
+  margin-bottom: 0.75rem;
+  box-shadow: 0 0 20px rgba(0, 242, 254, 0.25);
+}
+
+.section-title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.03em;
+}
+
+/* --- Section 01: ABOUT ME --- */
+#about {
+  padding-top: calc(var(--nav-height) + 1rem);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.about-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 1.3rem;
+  background: rgba(99, 102, 241, 0.15);
+  border: 1px solid rgba(99, 102, 241, 0.35);
+  border-radius: 100px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #a5b4fc;
+  margin-bottom: 1.8rem;
+  box-shadow: 0 0 25px rgba(99, 102, 241, 0.25);
+}
+
+.about-badge-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: var(--cyan-glow);
+  box-shadow: 0 0 10px var(--cyan-glow);
+  animation: pulseDot 2s infinite;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.4); }
+}
+
+.about-title {
+  font-size: 3.8rem;
+  font-weight: 800;
+  margin-bottom: 1.2rem;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+}
+
+.about-name {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0.25rem;
+}
+
+.about-role {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--cyan-glow);
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 12px rgba(0, 242, 254, 0.4);
+}
+
+.about-text {
+  font-size: 1.15rem;
+  line-height: 1.85;
+  color: var(--text-muted);
+  margin-bottom: 2.5rem;
+  max-width: 620px;
+}
+
+.about-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  padding: 1rem 2rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.98rem;
+  font-weight: 700;
+  transition: all var(--transition-fast);
+  border: 1px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary {
+  background: var(--grad-primary);
+  color: #060911;
+  box-shadow: 0 0 25px rgba(0, 242, 254, 0.5);
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 0 40px rgba(0, 242, 254, 0.7);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-main);
+  border: 1px solid var(--border-glass);
+  backdrop-filter: blur(10px);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--cyan-glow);
+  color: var(--cyan-glow);
+  transform: translateY(-3px);
+  box-shadow: 0 0 25px rgba(0, 242, 254, 0.3);
+}
+
+/* Profile Photo Container */
+.about-photo-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.about-photo-frame {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--bg-card);
+  border: 2px solid rgba(0, 242, 254, 0.4);
+  box-shadow: 0 0 50px rgba(0, 242, 254, 0.3);
+  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+}
+
+.about-photo-frame::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  background: var(--grad-primary);
+  border-radius: var(--radius-lg);
+  z-index: -1;
+  opacity: 0.6;
+  filter: blur(12px);
+  transition: opacity var(--transition-smooth);
+}
+
+.about-photo-frame:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 0 70px rgba(0, 242, 254, 0.5);
+}
+
+.about-photo-frame:hover::before {
+  opacity: 1;
+}
+
+.about-photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-smooth);
+}
+
+.about-photo-frame:hover img {
+  transform: scale(1.06);
+}
+
+/* --- CARD 3D TILT & INTERACTIVE MOUSE SPOTLIGHT --- */
+.tilt-card {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-glow);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  transition: transform 0.15s ease-out, border-color var(--transition-fast), box-shadow var(--transition-fast);
+  transform-style: preserve-3d;
+  overflow: hidden;
+}
+
+.tilt-card::before {
+  content: '';
+  position: absolute;
+  top: var(--mouse-y, 50%);
+  left: var(--mouse-x, 50%);
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(0, 242, 254, 0.24) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tilt-card:hover::before {
+  opacity: 1;
+}
+
+.tilt-card:hover {
+  border-color: var(--border-glow);
+  box-shadow: var(--shadow-hover);
+}
+
+/* --- Section 02: WHY ME --- */
+.why-intro {
+  max-width: 850px;
+  margin-bottom: 3.5rem;
+}
+
+.why-intro-p {
+  font-size: 1.12rem;
+  line-height: 1.85;
+  color: var(--text-muted);
+  margin-bottom: 1.2rem;
+}
+
+.why-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.why-card {
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.why-card-number {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--cyan-glow);
+  letter-spacing: 0.1em;
+  margin-bottom: 1.2rem;
+  text-shadow: 0 0 10px var(--cyan-glow);
+}
+
+.why-card-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 1rem;
+}
+
+.why-card-desc {
+  font-size: 0.98rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* --- Section 03: EDUCATION --- */
+.education-wrapper {
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.education-card {
+  padding: 3.5rem 4rem;
+  position: relative;
+}
+
+.education-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background: var(--grad-primary);
+  box-shadow: 0 0 20px var(--cyan-glow);
+}
+
+.education-header-badge {
+  display: inline-block;
+  padding: 0.4rem 1.1rem;
+  background: rgba(99, 102, 241, 0.15);
+  border: 1px solid rgba(99, 102, 241, 0.35);
+  border-radius: 100px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #a5b4fc;
+  margin-bottom: 1.5rem;
+}
+
+.education-university {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 0.5rem;
+}
+
+.education-faculty {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--cyan-glow);
+  margin-bottom: 0.2rem;
+}
+
+.education-dept {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: 2.5rem;
+}
+
+.education-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-glass);
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-light);
+  margin-bottom: 0.4rem;
+}
+
+.stat-value {
+  font-size: 1.8rem;
+  font-weight: 800;
+  background: var(--grad-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.stat-sub {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* --- Section 04: TECHNICAL SKILLS --- */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.skill-category-card {
+  padding: 2.5rem 2rem;
+}
+
+.category-number {
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--cyan-glow);
+  margin-bottom: 0.6rem;
+}
+
+.category-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 1.8rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid var(--border-glass);
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.skill-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.55rem 1.1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-sm);
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-main);
+  transition: all var(--transition-fast);
+}
+
+.skill-tag:hover {
+  background: var(--grad-primary);
+  color: #060911;
+  border-color: var(--cyan-glow);
+  box-shadow: 0 0 20px rgba(0, 242, 254, 0.5);
+  transform: translateY(-3px);
+}
+
+/* ==========================================================================
+   DRAMATIC CYBERSECURITY & QA SPECIFIC ICON ANIMATIONS
+   ========================================================================== */
+
+.icon-box {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(0,242,254,0.22) 0%, rgba(121,40,202,0.3) 100%);
+  border: 1.5px solid rgba(0, 242, 254, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  color: var(--cyan-glow);
+  box-shadow: 0 0 25px rgba(0, 242, 254, 0.35);
+  transition: all var(--transition-fast);
+}
+
+.icon-box::after {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: 25px;
+  border: 1px solid rgba(0, 242, 254, 0.4);
+  animation: cyberPulseRing 2.5s ease-in-out infinite;
+}
+
+@keyframes cyberPulseRing {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.1); border-color: var(--pink-glow); }
+}
+
+.tilt-card:hover .icon-box {
+  background: var(--grad-primary);
+  color: #060911;
+  border-color: var(--cyan-glow);
+  box-shadow: 0 0 45px rgba(0, 242, 254, 0.8);
+  transform: scale(1.15) rotate(-6deg);
+}
+
+/* 1. Fast Learner: Cyber Circuit Overclock Surge */
+.icon-fast-learner svg {
+  animation: cyberOverclock 1.2s ease-in-out infinite alternate;
+}
+@keyframes cyberOverclock {
+  0% { transform: scale(1) rotate(0deg); filter: drop-shadow(0 0 6px var(--cyan-glow)); }
+  50% { transform: scale(1.3) rotate(-8deg); filter: drop-shadow(0 0 20px var(--pink-glow)); }
+  100% { transform: scale(1.15) rotate(8deg); filter: drop-shadow(0 0 14px var(--cyan-glow)); }
+}
+
+/* 2. Problem Solving: Target Scope Radar Sweep & Lock */
+.icon-problem-solving svg .radar-circle {
+  transform-origin: 12px 12px;
+  animation: targetScopeRotate 2.2s linear infinite;
+}
+.icon-problem-solving svg .radar-dot {
+  animation: targetLockPing 0.9s ease-in-out infinite alternate;
+}
+@keyframes targetScopeRotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+@keyframes targetLockPing { 0% { opacity: 0.2; transform: scale(0.5); fill: var(--cyan-glow); } 100% { opacity: 1; transform: scale(1.6); fill: var(--pink-glow); filter: drop-shadow(0 0 10px var(--pink-glow)); } }
+
+/* 3. Communication: Encrypted Packet Signal Bounce */
+.icon-communication svg .wave-1 { animation: packetBounce 0.7s ease-in-out infinite alternate; }
+.icon-communication svg .wave-2 { animation: packetBounce 0.7s ease-in-out infinite alternate 0.2s; }
+.icon-communication svg .wave-3 { animation: packetBounce 0.7s ease-in-out infinite alternate 0.4s; }
+@keyframes packetBounce { 0% { transform: translateY(3px); stroke: var(--cyan-glow); } 100% { transform: translateY(-5px); stroke: var(--pink-glow); } }
+
+/* 4. Team Leadership: Cyber Command Node Orbit */
+.icon-team-leader svg .leader-node { animation: commandNodePulse 1.6s ease-in-out infinite alternate; }
+.icon-team-leader svg .team-node-1 { transform-origin: 12px 12px; animation: orbitAround 3.5s linear infinite; }
+.icon-team-leader svg .team-node-2 { transform-origin: 12px 12px; animation: orbitAround 3.5s linear infinite -1.75s; }
+@keyframes commandNodePulse { 0% { transform: scale(0.8); fill: var(--cyan-glow); } 100% { transform: scale(1.4); fill: var(--pink-glow); filter: drop-shadow(0 0 12px var(--pink-glow)); } }
+
+/* 5. AI Tools: Neural Quantum Processor Matrix */
+.icon-ai-tools svg .ai-core { animation: neuralQuantumGlow 1.6s ease-in-out infinite alternate; }
+.icon-ai-tools svg .circuit-line { animation: circuitDash 1.8s linear infinite; stroke-dasharray: 4 4; }
+@keyframes neuralQuantumGlow { 0% { filter: drop-shadow(0 0 5px var(--cyan-glow)); stroke: var(--cyan-glow); } 100% { filter: drop-shadow(0 0 20px var(--pink-glow)); stroke: var(--pink-glow); transform: scale(1.12); } }
+
+/* 6. QA Software Testing: QA Laser Scanner & Green Pass Check */
+.icon-testing svg .scan-line { animation: qaLaserScan 1.4s ease-in-out infinite alternate; }
+.icon-testing svg .check-mark { animation: qaPassCheck 1s ease-in-out infinite alternate; }
+@keyframes qaLaserScan { 0% { transform: translateY(-6px); opacity: 0.2; stroke: var(--pink-glow); } 100% { transform: translateY(6px); opacity: 1; stroke: var(--cyan-glow); } }
+@keyframes qaPassCheck { 0% { stroke: var(--cyan-glow); filter: drop-shadow(0 0 4px var(--cyan-glow)); } 100% { stroke: #10b981; filter: drop-shadow(0 0 18px #10b981); } }
+
+/* 7. Desktop App Dev: IDE Compiler Window & Typing Prompt */
+.icon-dev svg .code-cursor { animation: ideCursorBlink 0.5s infinite alternate; }
+.icon-dev svg .window-frame { animation: ideWindowGlow 1.8s ease-in-out infinite alternate; }
+@keyframes ideCursorBlink { 0% { opacity: 0; stroke-width: 1; } 100% { opacity: 1; stroke-width: 3.5; stroke: var(--pink-glow); } }
+@keyframes ideWindowGlow { 0% { filter: drop-shadow(0 0 4px rgba(0, 242, 254, 0.4)); } 100% { filter: drop-shadow(0 0 16px rgba(0, 242, 254, 0.9)); } }
+
+/* 8. Basic Security Analysis: Firewall Shield Barrier */
+.icon-security svg .shield-path { animation: firewallBarrier 1.6s ease-in-out infinite alternate; }
+.icon-security svg .shield-lock { animation: firewallLock 1.6s ease-in-out infinite alternate; }
+@keyframes firewallBarrier { 0% { stroke-width: 2; stroke: var(--indigo-glow); filter: drop-shadow(0 0 4px var(--indigo-glow)); } 100% { stroke-width: 3.2; stroke: var(--cyan-glow); filter: drop-shadow(0 0 20px var(--cyan-glow)); } }
+@keyframes firewallLock { 0% { transform: scale(0.85); fill: var(--cyan-glow); } 100% { transform: scale(1.25); fill: var(--pink-glow); } }
+
+/* 9. Contact Icons */
+.icon-email svg { animation: secureMailFloat 2.2s ease-in-out infinite alternate; }
+.icon-phone svg { animation: voipRingVibrate 1.8s ease-in-out infinite; }
+.icon-linkedin svg { animation: verifiedNodeGlow 1.6s ease-in-out infinite alternate; }
+
+/* --- Section 05: SOFT SKILLS GRID --- */
+.soft-skills-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.25rem;
+}
+
+.soft-skill-card {
+  padding: 2.2rem 1.4rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+.soft-skill-title {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.45;
+}
+
+/* --- Section 06: OFFERED SERVICES --- */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.service-card {
+  padding: 2.8rem 2.2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.service-num {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--cyan-glow);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.6rem;
+}
+
+.service-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 1rem;
+}
+
+.service-desc {
+  font-size: 0.98rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* --- Section 07: CONTACT ME --- */
+section#contact {
+  background-color: var(--contact-bg);
+  background-image: 
+    radial-gradient(circle at 50% 30%, rgba(99, 102, 241, 0.22) 0%, transparent 60%),
+    radial-gradient(circle at 80% 80%, rgba(0, 242, 254, 0.14) 0%, transparent 50%);
+  border-top: 1px solid rgba(99, 102, 241, 0.35);
+}
+
+.contact-wrapper {
+  max-width: 850px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.contact-subheading {
+  font-size: 2.2rem;
+  font-weight: 800;
+  background: var(--grad-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1.2rem;
+}
+
+.contact-text {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  line-height: 1.85;
+  margin-bottom: 3.5rem;
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contact-info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 3.5rem;
+}
+
+.contact-info-card {
+  padding: 2rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+}
+
+.contact-info-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-light);
+  margin-bottom: 0.4rem;
+}
+
+.contact-info-val {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--text-main);
+  word-break: break-all;
+}
+
+.contact-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.btn-contact {
+  background: var(--grad-primary);
+  color: #060911;
+  box-shadow: 0 0 25px rgba(0, 242, 254, 0.5);
+}
+
+.btn-contact:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 0 40px rgba(0, 242, 254, 0.7);
+}
+
+.btn-contact-outline {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-main);
+  border: 1px solid var(--border-glass);
+}
+
+.btn-contact-outline:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--cyan-glow);
+  color: var(--cyan-glow);
+  transform: translateY(-3px);
+}
+
+/* --- Footer --- */
+.footer {
+  background-color: #02040a;
+  color: var(--text-light);
+  padding: 2rem;
+  text-align: center;
+  font-size: 0.88rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* --- Scroll Entrance Animations --- */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animate-on-scroll.animated {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+.delay-4 { transition-delay: 0.4s; }
+.delay-5 { transition-delay: 0.5s; }
+
+/* Accessibility: prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .animate-on-scroll { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .cursor-dot, .cursor-outline, #bg-canvas { display: none !important; }
+}
+
+/* --- Responsive Layouts --- */
+@media (max-width: 1024px) {
+  .about-grid { grid-template-columns: 1fr; text-align: center; gap: 3rem; }
+  .about-text { margin-left: auto; margin-right: auto; }
+  .about-actions { justify-content: center; }
+  .about-photo-wrapper { order: -1; }
+  .why-cards, .skills-grid, .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .soft-skills-grid { grid-template-columns: repeat(3, 1fr); }
+  .contact-info-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  section { min-height: auto; padding: calc(var(--nav-height) + 2rem) 1.25rem 3.5rem 1.25rem; }
+  .nav-links {
+    position: fixed; top: var(--nav-height); left: 0; right: 0;
+    background-color: var(--bg-primary); flex-direction: column;
+    padding: 2rem 1.5rem; gap: 1.2rem; border-bottom: 1px solid var(--border-glass);
+    transform: translateY(-150%); opacity: 0; visibility: hidden;
+    transition: all var(--transition-smooth);
+  }
+  .nav-links.mobile-open { transform: translateY(0); opacity: 1; visibility: visible; }
+  .nav-toggle { display: block; }
+  .about-title { font-size: 2.6rem; }
+  .section-title { font-size: 2rem; }
+  .why-cards, .skills-grid, .services-grid, .soft-skills-grid { grid-template-columns: 1fr; }
+  .education-card { padding: 2rem 1.5rem; }
+  .education-university { font-size: 1.75rem; }
+  .education-stats { grid-template-columns: 1fr; gap: 1.2rem; }
+  .contact-actions { flex-direction: column; width: 100%; }
+  .btn { width: 100%; }
+}
